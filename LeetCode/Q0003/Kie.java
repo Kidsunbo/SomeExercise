@@ -17,7 +17,7 @@ class Solution {
     }
 }
 
-public class main {
+public class Kie {
 
     public static void main(String[] args) {
         var s = new Solution();
