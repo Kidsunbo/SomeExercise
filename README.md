@@ -2,6 +2,4 @@
 > This is a repository for exercise. especially for leetcode.
 
 
-Leetcode: Do all the leetcode problems with five languages (C++, Python, Java, JavaScript, C#).
-
-
+Leetcode: Do all the leetcode problems with five languages (C++, Python, Java, JavaScript, C#)
