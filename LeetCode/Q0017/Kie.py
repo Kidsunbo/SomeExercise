@@ -8,9 +8,11 @@ class Solution:
         if digits=="": return []
         letters = {'1':'*','2':'abc','3':'def','4':'ghi','5':'jkl','6':'mno','7':'pqrs','8':'tuv','9':'wxyz'}
 
+
         # Cheat version. Use itertools.
         # temp = itertools.product(*[letters[i] for i in digits])
         # return list(map(lambda x:''.join(x),temp))
+
 
         # No cheat version.
         l = [*letters[digits[0]]]
