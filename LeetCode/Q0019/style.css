@@ -1,0 +1,30 @@
+
+*{
+    margin: 0px;
+    border-width: 0px;
+    padding: 0px;
+}
+
+
+#main{
+    padding: 10px;
+    margin: 10px auto;
+    border: orange solid 1px;
+    width: 50%;
+}
+
+.example{
+    font-weight: bold;
+}
+
+#answer{
+    margin: 10% auto;
+    border: crimson solid 1px;
+    padding: 5%;
+    text-align: center;
+}
+
+#output{
+    display: inline;
+    font-weight: bold;
+}
