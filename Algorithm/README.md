@@ -8,3 +8,6 @@ Of course, other languages, such as `Kotlin`,`Dart`, `Go`,`Rust` ect, also have 
 
 ### Coverage:
 It won't cover all the algorithm I learn, It's jsut a place for me to store some code of these algorithms :)
+
+### Repetition
+Sometimes, there will be several files in one folder which are the same algorithm but written in different languages. Hey me, don't be puzzled, it's just for the reason that I want to consolidate the memory of such algorithm :)
