@@ -97,9 +97,12 @@ namespace Heap_Test
         {
             var target1 = index * 2 + 1;
             var target2 = index * 2 + 2;
-            if (target2 >= _heap.Count) return;
-
-            if (_heap[index] < _heap[target1] || _heap[index]<_heap[target2])
+            if (target1 >= _heap.Count) return;
+            else if (target2 >= _heap.Count)
+            {
+                if (_heap[target1] > _heap[index]) swap(target1, index);
+            }
+            else if (_heap[index] < _heap[target1] || _heap[index]<_heap[target2])
             {
                 if (_heap[target1] < _heap[target2])
                 {
@@ -119,8 +122,12 @@ namespace Heap_Test
         {
             var target1 = index * 2 + 1;
             var target2 = index * 2 + 2;
-            if (target2 >= _heap.Count) return;
-            if (_heap[index] > _heap[target1] || _heap[index] > _heap[target2])
+            if (target1 >= _heap.Count) return;
+            else if (target2 >= _heap.Count)
+            {
+                if (_heap[target1] < _heap[index]) swap(target1, index);
+            }
+            else if (_heap[index] > _heap[target1] || _heap[index] > _heap[target2])
             {
                 if (_heap[target1] > _heap[target2])
                 {
