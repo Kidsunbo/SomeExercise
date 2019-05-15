@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Queue (array)</title>
+</head>
+<body>
+
+<script>
+    class Queue{
+        //Supported by ES2017
+        //arr = new Array(10);
+        //empty=true;
+        //full=false;
+        constructor(n){
+            if(n){
+                this.arr=new Array(n);
+            }
+            else{
+                this.arr = new Array(10);
+            }
+            this.empty=true;
+            this.full=false;
+            this.front = 0;
+            this.rear = 0;
+        }
+
+        get Empty(){
+            return this.empty;
+        }
+        set Empty(v){
+            this.empty=v;
+        }
+        get Full(){
+            return this.full;
+        }
+        set Full(v){
+            this.full=v;
+        }
+
+        get Peek(){
+            return this.arr[(this.rear-1+this.arr.length)%this.arr.length];
+        }
+        insert(v){
+            if(this.Full) throw new Error("Full");
+            this.arr[this.rear]=v;
+            this.Empty=false;
+            this.rear = (this.rear+1)%this.arr.length;
+            if(this.rear===this.front)
+                this.Full = true;
+        }
+        remove(){
+            if(this.Empty) throw new Error("Empty");
+            this.front = (this.front+1)%this.arr.length;
+            this.Full=false;
+            if(this.rear===this.front) this.Empty=true;
+        }
+        get(){
+            let f = this.front;
+            let e = this.rear;
+            let r = "";
+            while(f!==e){
+                r+=this.arr[f]+" , ";
+                f = (f+1)%this.arr.length;
+            }
+            r+="<br/>";
+            return r
+        }
+
+    }
+    let a = new Queue();
+    a.insert(10);
+    a.insert(30);
+    document.write(a.get());
+    a.remove();
+    document.write(a.get());
+    document.write(a.Peek);
+
+</script>
+</body>
+</html>
