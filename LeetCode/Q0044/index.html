@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>44. Wildcard Matching</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="Kie.js"></script>
+</head>
+<body>
+<div id="main">
+    <div id="question">
+
+        <p>
+            Given an input string (<code>s</code>) and a pattern (<code>p</code>), implement wildcard pattern
+            matching with support for <code>'?'</code> and <code>'*'</code>.
+            <br/>
+            <br/>
+            <div style="background-color: gainsboro;padding: 20px">
+                <code>
+                '?' Matches any single character.<br/>
+                '*' Matches any sequence of characters (including the empty sequence).
+                </code>
+            </div>
+            <br/>
+            <br/>
+            The matching should cover the <strong>entire</strong> input string (not partial).
+        </p>
+        <br/>
+
+        <p><br/><b>Note</b>:
+        <br/>
+            <ul style="margin-left: 30px">
+        <li><code>s</code> could be empty and contains only lowercase letters <code>a-z</code>.</li>
+        <li><code>p</code> could be empty and contains only lowercase letters <code>a-z</code>, and characters like <code>?</code> or <code>*</code>.</li>
+    </ul>
+        </p><br/><br/>
+        <span class="example">Example 1:</span>
+        <div class="example_block">
+        <code>
+            <strong>Input</strong>: <br/> s = "aa" <br/>
+            p = "a" <br/>
+            <strong>Output</strong>:false<br/>
+            <strong>Explanation</strong>:"a" does not match the entire string "aa".
+        </code><br/>
+        </div>
+
+        <span class="example">Example 2:</span>
+        <div class="example_block">
+            <code>
+                <strong>Input</strong>: <br/> s = "aa" <br/>
+                p = "*" <br/>
+                <strong>Output</strong>:true<br/>
+                <strong>Explanation</strong>:'*' matches any sequence.
+            </code><br/>
+        </div>
+
+        <span class="example">Example 3:</span>
+        <div class="example_block">
+            <code>
+                <strong>Input</strong>: <br/> s = "cd" <br/>
+                p = "?a" <br/>
+                <strong>Output</strong>:false<br/>
+                <strong>Explanation</strong>:'?' matches 'c', but the second letter is 'a', which does not match 'b'.
+            </code><br/>
+        </div>
+
+        <span class="example">Example 4:</span>
+        <div class="example_block">
+            <code>
+                <strong>Input</strong>: <br/> s = "adceb" <br/>
+                p = "*a*b" <br/>
+                <strong>Output</strong>:true<br/>
+                <strong>Explanation</strong>:The first '*' matches the empty sequence, while the second '*' matches the substring "dce".
+            </code><br/>
+        </div>
+
+        <span class="example">Example 5:</span>
+        <div class="example_block">
+            <code>
+                <strong>Input</strong>: <br/> s = "acdcb" <br/>
+                p = "a*c?b" <br/>
+                <strong>Output</strong>:false
+            </code><br/>
+        </div>
+
+
+    </div>
+    <div id="answer">
+        <input id= "param" type="text" style="width: 20%;height:2em;border: black solid 1px"><br/><br/>
+        <b>The answer is: </b>
+        <div id="output"></div>
+    </div>
+</div>
+
+</body>
+</html>
