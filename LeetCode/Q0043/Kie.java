@@ -1,35 +1,42 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Kie {
 
     public static void main(String[] args) {
-        var s = new Solution();
-        //System.out.println(s.multiply("",""));
-        System.out.println(s.add("123","123"));
+        Solution s = new Solution();
+        System.out.println(s.multiply("0","0"));
+
     }
 }
 
 class Solution {
     public String multiply(String num1, String num2) {
-        return null;
-    }
+        if(num1.length()==0 || num2.length()==0) return "";
+        ArrayList<Integer> temp = new ArrayList<>(219); // Maximum numbers of number is 219
+        for(int i =0;i<219;i++){
+            temp.add(0);
+        }
+        for(int i = num1.length()-1;i>=0;i--){
+            int dig1 = num1.charAt(i)-'0';
+            for(int j = num2.length()-1;j>=0;j--){
+                int dig2 = num2.charAt(j)-'0';
+                temp.set(temp.size()-1-(num1.length()-1-i)-(num2.length()-1-j),temp.get(temp.size()-1-(num1.length()-1-i)-(num2.length()-1-j))+dig1*dig2);
+            }
+        }
 
-    String add(String num1,String num2){
-        int carry=0;
-        StringBuilder sb=new StringBuilder();
-        int length=num1.length()>num2.length()?num1.length(): num2.length();
-        String n1=num1.length()>num2.length()?num1: num2;
-        String n2 = num1.length()<num2.length()?num1: num2;
-        n2="0".repeat(length-n2.length())+n2;
-        for(int i = length-1;i>=0;i-=7){
-            if(i>=7){
-                int temp =Integer.valueOf(n1.substring(i-7,i+1))+Integer.valueOf(n2.substring(i-7,i+1))+carry;
-                sb.append(temp%10000000);
-                carry=temp/10000000;
-            }
-            else{
-                int temp =Integer.valueOf(n1.substring(0,i+1))+Integer.valueOf(n2.substring(0,i+1))+carry;
-                sb.append(temp%10000000);
-                carry=temp/10000000;
-            }
+        int beg = -1;
+        for(int i = temp.size()-1;i>0;i--){
+            temp.set(i-1,(temp.get(i)/10+temp.get(i-1)));
+            temp.set(i,temp.get(i)%10);
+            if(temp.get(i)!=0) beg=i;
+        }
+        if(beg==-1) return "0";
+        StringBuilder sb = new StringBuilder();
+        for(int i = beg;i<temp.size();i++){
+            sb.append(temp.get(i));
         }
         return sb.toString();
     }
