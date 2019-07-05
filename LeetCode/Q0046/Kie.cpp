@@ -1,6 +1,41 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>  // Used for the other algorithm
 using namespace std;
+
+// // This algorithm is much faster even it seems to be silly. It beats 83% while the other beats 29% in time.
+//class Solution {
+//public:
+//    vector<vector<int>> permute(vector<int> nums) {
+//        std::sort(nums.begin(),nums.end());
+//        int l = fact(nums.size());
+//        vector<vector<int>> result(l,vector<int>());
+//        for(auto i =0;i<nums.size();i++){
+//
+//            int ind = 0;
+//            int count =fact(nums.size()-1-i);
+//            int j = count;
+//            for(auto& vec : result){
+//                while(std::find(vec.begin(),vec.end(),nums[ind])!=vec.end()){
+//                    ind=++ind%nums.size();
+//                }
+//                vec.push_back(nums[ind]);
+//                j--;
+//                if(j==0){
+//                    j=count;
+//                    ind=++ind%nums.size();
+//                }
+//            }
+//        }
+//        return result;
+//    }
+//
+//    int fact(int num){
+//        if(num<=1) return 1;
+//        return fact(num-1)*num;
+//    }
+//};
+
 
 class Solution {
 public:
