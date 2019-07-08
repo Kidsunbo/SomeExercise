@@ -3,42 +3,33 @@
  * @return {string[][]}
  */
 var groupAnagrams = function(strs) {
+
     let result = new Map();
-    let add = [...strs];
-    add =add.map(x=>[...x].reduce((x,y)=>x+y.charCodeAt(0),0));
-    let mul = [...strs];
-    mul = mul.map(x=>[...x].reduce((x,y)=>x*y.charCodeAt(0),1));
+    let ind = [...strs];
+    const prime = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101];
+    ind = ind.map(x=>[...x].reduce((x,y)=>x*prime[y.charCodeAt(0)-"a".charCodeAt(0)],1));
     for(let i =0;i<strs.length;i++){
-        let key = new Key(add[i],mul[i],strs[i].length).key;
-        if(result.has(key)){
-            result.get(key).push(strs[i]);
+        if(result.has(ind[i])){
+            result.get(ind[i]).push(strs[i]);
         }
         else{
-            result.set(key,[strs[i],]);
+            result.set(ind[i],[strs[i]]);
         }
     }
-    console.log(result.keys());
     return [...result.values()];
 
 };
 
-class Key{
-    constructor(add,mul,len){
-        this.add = add;
-        this.mul = mul;
-        this.len = len;
-    }
-
-    get key(){
-        return Symbol.for(`${this.add} ${this.mul} ${this.len}`);
-    }
-}
 
 window.onload=function () {
+    String.prototype.replaceAll = function(target, replacement) {
+        return this.split(target).join(replacement);
+    };
     $("#param").keyup(function () {
-        let values = eval($("#param").val());
+        let values = eval($("#param").val().replaceAll(`"`,"").replaceAll(" ","").split(","));
+
         if(values.length>1) {
-            $("#output").text(groupAnagrams(values));
+            $("#output").html(groupAnagrams(values));
         }
     })
 };
