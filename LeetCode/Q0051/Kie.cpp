@@ -1,83 +1,97 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
+#include <algorithm>
 using namespace std;
+
+void print(vector<vector<int>>& temp) {
+    cout << endl << "----------DEBUG----------" << endl;
+    for (auto& i : temp) {
+        for (auto& j : i) cout << j << " ";
+        cout << endl;
+    }
+    cout << "------------------------" << endl;
+}
+
 
 
 class Solution {
 public:
     vector<vector<string>> solveNQueens(int n) {
-        vector<vector<char>> temp(n,vector<char>(n,'.'));
+        vector<vector<int>> chessBoard(n,vector<int>(n,0));
         vector<vector<string>> result;
-        solve(temp,result,0,n);
+        solve(chessBoard,result,0,-1,n);
         return result;
     }
 
-    void solve(vector<vector<char>>& temp,vector<vector<string>>& result,int row,const int& max){
-        if(row==max){
-            if(checkValid(temp)){
-                vector<string> res;
-                res.reserve(temp.size());
-                for(auto& vec:temp){
-                    res.emplace_back(vec.begin(),vec.end());
+    void solve(vector<vector<int>>& chessBoard,vector<vector<string>>& result,int row,int current_col,int n) {
+        if (row == n) {
+            vector<string> vec;
+            vec.reserve(n);
+            for (auto &i : chessBoard) {
+                stringstream ss;
+                for (auto &j : i) {
+                    if (j < n) ss << '.';
+                    else ss << 'Q';
                 }
-                result.push_back(res);
+                vec.push_back(ss.str());
+            }
+            result.push_back(vec);
+            return;
+        }
+        auto res = findNext(chessBoard, row, current_col + 1, n);
+        if (res == -1) {
+            return;
+        }
+        while (true) {
+            fill(chessBoard,row,res,n);
+            solve(chessBoard,result,row+1,-1,n);
+            unfill(chessBoard,row,res,n);
+            res = findNext(chessBoard, row, res+1, n);
+            if (res == -1) {
                 return;
             }
-            else return;
         }
-        else{
-            for(int i=0;i<temp.size();i++){
-                if(i>0)temp[row][i-1]='.';
-                temp[row][i]='Q';
-                solve(temp,result,row+1,max);
-            }
-            temp[row][temp[row].size()-1]='.';
-        }
+
     }
 
-    bool checkValid(const vector<vector<char>>& vec){
-        for(int row = 0;row<vec.size();row++){
-            for(int col=0;col<vec[row].size();col++){
-                if(vec[row][col]=='Q'){
-                    // check up side
-                    for(int i=row-1,left = col-1,right = col+1;i>=0;i--,left--,right++){
-                        if(vec[i][col]=='Q') return false;
-                        if(left>=0&&vec[i][left]=='Q') return false;
-                        if(right<vec.size()&&vec[i][right]=='Q') return false;
-                    }
-                    // check down side
-                    for(int i=row+1,left=col-1,right=col+1;i<vec.size();i++,left--,right++){
-                        if(vec[i][col]=='Q') return false;
-                        if(left>=0&&vec[i][left]=='Q') return false;
-                        if(right<vec.size()&&vec[i][right]=='Q') return false;
-                    }
-
-                }
-            }
+    int findNext(vector<vector<int>>& chessBoard,int row, int start,int n){
+        if(start==n) return -1;
+        for(;start<n;start++){
+            if(chessBoard[row][start]==0) return start;
         }
-        return true;
+        return -1;
+    }
+
+    void fill(vector<vector<int>>& chessBoard,int row,int col,int n) {
+        chessBoard[row][col] += n;
+        for (int temp_row = row + 1; temp_row < n; temp_row++) {
+            chessBoard[temp_row][col]++;
+            if (col + temp_row - row < n) chessBoard[temp_row][col + temp_row - row]++;
+            if (col - temp_row + row >= 0) chessBoard[temp_row][col - temp_row + row]++;
+        }
+    }
+    void unfill(vector<vector<int>>& chessBoard,int row,int col,int n) {
+        chessBoard[row][col] -= n;
+        for (int temp_row = row + 1; temp_row < n; temp_row++) {
+            chessBoard[temp_row][col]--;
+            if (col + temp_row - row < n) chessBoard[temp_row][col + temp_row - row]--;
+            if (col - temp_row + row >= 0) chessBoard[temp_row][col - temp_row + row]--;
+        }
     }
 };
 
 
 
-void print(vector<vector<char>>& temp){
-    cout<<endl<<"----------DEBUG----------"<<endl;
-    for(auto& i:temp){
-        cout<<string(i.begin(),i.end())<<endl;
-    }
-    cout<<"------------------------"<<endl;
-}
-
 int main() {
     Solution s;
-    auto res = s.solveNQueens(9);
-    for(auto& i:res){
-        for(auto& j:i){
-            cout<<j<<endl;
+    auto res = s.solveNQueens(8);
+    for (auto& i : res) {
+        for (auto& j : i) {
+            cout << j << endl;
         }
-        cout<<"-----------------------"<<endl;
+        cout << "-----------------------" << endl;
     }
     cin.get();
     return 0;
