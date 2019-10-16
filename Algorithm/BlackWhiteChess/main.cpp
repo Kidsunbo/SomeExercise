@@ -56,7 +56,7 @@ int main() {
 
     string orders;
     std::getline(cin,orders);
-    orders="F4,F5,F6,G5";
+    orders="F4,F5,F6,G5,E6";
     auto steps = getSteps(orders);
 
     int nblack=2;
@@ -105,25 +105,29 @@ bool changeDir(vector<vector<PieceType>>& board,tuple<int,int> dir,PieceType typ
         x-=xd;
         y-=yd;
     }
-    board[step.y][step.x]=type;
-    if(type==PieceType::white) {
-        nwhite++;
-    }
-    else if(type==PieceType::black){
-        nblack++;
-    }
+
     return true;
 }
 
 bool goNext(vector<vector<PieceType>>& board, Step &step,PieceType type,int &nblack, int &nwhite) {
     if(board[step.y][step.x]!=PieceType::none) return false;
-    return changeDir(board,{0,-1},type,step,nblack,nwhite)|
+    if(changeDir(board,{0,-1},type,step,nblack,nwhite)|
             changeDir(board,{1,-1},type,step,nblack,nwhite)|
             changeDir(board,{1,0},type,step,nblack,nwhite)|
             changeDir(board,{0,1},type,step,nblack,nwhite)|
             changeDir(board,{-1,1},type,step,nblack,nwhite)|
             changeDir(board,{-1,0},type,step,nblack,nwhite)|
             changeDir(board,{-1,-1},type,step,nblack,nwhite)|
-            changeDir(board,{1,1},type,step,nblack,nwhite);
+            changeDir(board,{1,1},type,step,nblack,nwhite)){
+        board[step.y][step.x]=type;
+        if(type==PieceType::white) {
+            nwhite++;
+        }
+        else if(type==PieceType::black){
+            nblack++;
+        }
+        return true;
+    }
+    else return false;
 
 }
