@@ -5,11 +5,6 @@ import (
 	"strings"
 )
 
-type test struct {
-	a int
-	b int
-}
-
 
 func simplifyPath(path string) string {
 	_paths :=strings.Split(path,"/")
